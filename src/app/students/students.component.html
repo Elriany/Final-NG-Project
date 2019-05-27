@@ -1,0 +1,226 @@
+<section id="main-content">
+  <section class="wrapper site-min-height">
+    <div class="row">
+      <div class="col-md" style="margin-left:20px; margin-right:20px;">
+        <button type="button" class="btn btn-success mt-md-2 btnSpecial" data-toggle="modal" data-target="#myModalAdd">Add
+          New</button>
+        <table class="table table-hover table-bordered">
+          <thead class="alert-danger">
+            <tr>
+              <td class="text-center">ID</td>
+              <td class="text-center">FirstName</td>
+              <td class="text-center">LastName</td>
+              <td class="text-center">الأسم الأول</td>
+              <td class="text-center">الأسم الأخير</td>
+              <td class="text-center">Email</td>
+              <td class="text-center">Password</td>
+              <td class="text-center">Phone</td>
+              <td class="text-center">Date of birth</td>
+              <td class="text-center">Join Date</td>
+              <td class="text-center">Fired Date</td>
+              <td class="text-center">Status</td>
+              <td class="text-center">Parent Id</td>
+              <td class="text-center">Fees Id</td>
+              <td class="text-center">Image</td>
+              <td class="text-center">Level ID</td>
+              <td class="text-center">Class Room</td>
+              <td class="text-center">Operation</td>
+              <!---------------------------- Level ID Still not included ------------------------------------------------>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let std of Students;">
+              <td class="text-center">{{ std.id }}</td>
+              <td class="text-center">{{ std.fname }}</td>
+              <td class="text-center">{{ std.lname }}</td>
+              <td class="text-center">{{ std.Afname }}</td>
+              <td class="text-center">{{ std.Alname }}</td>
+              <td class="text-center">{{ std.email }}</td>
+              <td class="text-center">{{ std.pass }}</td>
+              <td class="text-center">{{ std.phone }}</td>
+              <td class="text-center">{{ std.DOB }}</td>
+              <td class="text-center">{{ std.JoinDate }}</td>
+              <td class="text-center">{{ std.FiredDate }}</td>
+              <td class="text-center">{{ std.status }}</td>
+              <td class="text-center">{{ std.ParentID }}</td>
+              <td class="text-center">{{ std.FeesID }}</td>
+              <td class="text-center">{{ std.levelId }}</td>
+              <td class="text-center">{{ std.classRoom }}</td>
+              <td class="text-center">
+                <img [src]="std.Img" width="60" height="60" alt=""></td>
+              <td class="text-center">
+                <button class="btn btn-danger" (click)="DeleteStudent(std.id)">Delete</button>&nbsp;
+                <button type="button" (click)="EditStudent(std.id)" class="btn btn-info" data-toggle="modal"
+                  data-target="#myModal">Edit</button>
+              </td>
+              <!---------------------------- Level ID Still not included ------------------------------------------------>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- Modal for Edit and Update Student -->
+<div id="myModal" *ngIf="Student" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit</h4>
+      </div>
+      <div class="modal-body">
+        <h1 class="text-center alert-success">Edit Student</h1>
+        <form (ngSubmit)="updateStudents(submitF)" #submitF="ngForm" class="form-group">
+          <input type="hidden" [value]="Student.id" ngModel name="id" #id="ngModel">
+          <input type="text" class="form-control" [value]="Student.fname" placeholder="Enter The First Name" ngModel
+            name="fname" #fname="ngModel" required>
+          <p class="alert-danger" *ngIf="!fname.valid && fname.touched">First Name Is Required</p><br />
+          <input type="text" class="form-control" [value]="Student.lname" placeholder="Enter The Last Name" ngModel
+            name="lname" #lname="ngModel" required>
+          <p class="alert-danger" *ngIf="!lname.valid && lname.touched">Last Name Is Required</p><br />
+
+          <input type="text" class="form-control" [value]="Student.Afname" placeholder="أدخل الأسم الأول" ngModel
+            name="Afname" #Afname="ngModel" required>
+          <p class="alert-danger" *ngIf="!Afname.valid && Afname.touched">الأسم الأول مطلوب</p><br />
+          <input type="text" class="form-control" [value]="Student.Alname" placeholder="أدخل الأسم الأخير" ngModel
+            name="Alname" #Alname="ngModel" required>
+          <p class="alert-danger" *ngIf="!Alname.valid && Alname.touched">الإسم الأخير مطلوب</p><br />
+
+          <input type="text" class="form-control" [value]="Student.email" placeholder="Enter The Email" ngModel
+            name="email" #email="ngModel" required>
+          <p class="alert-danger" *ngIf="!email.valid && email.touched">Email Is Required</p><br />
+          <input type="text" class="form-control" [value]="Student.pass" placeholder="Enter The Password" ngModel
+            name="pass" #pass="ngModel" required>
+          <p class="alert-danger" *ngIf="!pass.valid && pass.touched">Password Is Required</p><br />
+
+          <input type="text" class="form-control" [value]="Student.phone" placeholder="Enter The Phone" ngModel
+            name="phone" #phone="ngModel" required>
+          <p class="alert-danger" *ngIf="!phone.valid && phone.touched">Phone Is Required</p><br />
+          <input type="date" class="form-control" [value]="Student.DOB" placeholder="Enter The Date of birth" ngModel
+            name="DOB" #DOB="ngModel" required>
+          <p class="alert-danger" *ngIf="!DOB.valid && DOB.touched">Date of birth Is Required</p><br />
+
+          <input type="date" class="form-control" [value]="Student.JoinDate" placeholder="Enter The Join Date" ngModel
+            name="JoinDate" #JoinDate="ngModel" required>
+          <p class="alert-danger" *ngIf="!JoinDate.valid && JoinDate.touched">Join Date Is Required</p><br />
+          <input type="date" class="form-control" [value]="Student.FiredDate" placeholder="Enter The Fired Date" ngModel
+            name="FiredDate" #FiredDate="ngModel" required>
+          <p class="alert-danger" *ngIf="!FiredDate.valid && FiredDate.touched">Fired Date Is Required</p><br />
+
+          <input type="text" class="form-control" [value]="Student.status" placeholder="Choose The Status" ngModel
+            name="status" #status="ngModel" required>
+          <p class="alert-danger" *ngIf="!status.valid && status.touched">Status Is Required</p><br />
+          <input type="text" class="form-control" [value]="Student.ParentID" placeholder="Enter The Parent ID" ngModel
+            name="ParentID" #ParentID="ngModel" required>
+          <p class="alert-danger" *ngIf="!ParentID.valid && ParentID.touched">Parent ID Is Required</p><br />
+
+          <input type="text" class="form-control" [value]="Student.FeesID" placeholder="Enter The FeesID" ngModel
+            name="FeesID" #FeesID="ngModel" required>
+          <p class="alert-danger" *ngIf="!FeesID.valid && FeesID.touched">Fees ID Is Required</p><br />
+          <input type="file" class="form-control" [value]="Student.Img" placeholder="Upload Image" ngModel name="Img"
+            #Img="ngModel" required>
+          <p class="alert-danger" *ngIf="!Img.valid && Img.touched">Image Is Required</p><br />
+
+          <button type="submit" class="btn btn-danger btn-block">save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal content For Add Student-->
+<div id="myModalAdd" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <legend>Add Student Form</legend>
+        <fieldset>
+          <form (ngSubmit)="AddStudent(subitForm)" #subitForm="ngForm" class="form-group">
+
+            <label for="FN">First Name</label>
+            <input type="text" class="form-control" id="FN" ngModel name="fname" #fname="ngModel" required>
+            <p class="alert-danger" *ngIf="!fname.valid && fname.touched">Student's First Name In English Is
+              Required</p>
+            <br />
+
+            <label for="LN">Last Name</label>
+            <input type="text" class="form-control" id="LN" ngModel name="lname" #lname="ngModel" required>
+            <p class="alert-danger" *ngIf="!lname.valid && lname.touched">Student's Last Name In English Is
+              Required</p>
+            <br />
+
+            <label for="AFN">الأسم الأول</label>
+            <input type="text" class="form-control" id="AFN" ngModel name="Afname" #Afname="ngModel" required>
+            <p class="alert-danger" *ngIf="!Afname.valid && Afname.touched">الأسم الأول باللغه العربية مطلوب</p>
+            <br />
+
+            <label for="ALN">الأسم الأخير</label>
+            <input type="text" class="form-control" id="ALN" ngModel name="Alname" #Alname="ngModel" required>
+            <p class="alert-danger" *ngIf="!Alname.valid && Alname.touched">الأسم الأخير باللغه العربية مطلوب
+            </p>
+            <br />
+
+            <label for="ALN">Email</label>
+            <input type="email" class="form-control" id="MAIL" ngModel name="email" #email="ngModel" required>
+            <p class="alert-danger" *ngIf="!email.valid && email.touched">Student's Email Is Required</p><br />
+
+            <label for="ALN">Password</label>
+            <input type="password" class="form-control" ngModel name="pass" #pass="ngModel" required>
+            <p class="alert-danger" *ngIf="!pass.valid && pass.touched">Student's password Is Required</p><br />
+
+            <label for="ALN">Mobile Phone</label>
+            <input type="tel" class="form-control" ngModel name="phone" #phone="ngModel" required>
+            <p class="alert-danger" *ngIf="!phone.valid && phone.touched">Student's Mobile Phone Is Required</p>
+            <br />
+
+            <label for="ALN">Date of birth</label>
+            <input type="date" class="form-control" ngModel name="DOB" #DOB="ngModel" required>
+            <p class="alert-danger" *ngIf="!DOB.valid && DOB.touched">Student's Date of birth Is Required</p>
+            <br />
+
+            <label for="ALN">Join Date</label>
+            <input type="date" class="form-control" ngModel name="JoinDate" #JoinDate="ngModel" required>
+            <p class="alert-danger" *ngIf="!JoinDate.valid && JoinDate.touched">Student's Join Date Is Required
+            </p>
+            <br />
+
+            <label for="ALN">Fired Date</label>
+            <input type="date" class="form-control" ngModel name="FiredDate" #FiredDate="ngModel" required>
+            <p class="alert-danger" *ngIf="!FiredDate.valid && FiredDate.touched">Student's Fired Date Is
+              Required</p>
+            <br />
+
+            <label for="ALN" class="col-md-lg">Status</label>
+            <input type="text" class="form-control" ngModel name="status" #Status="ngModel" required>
+            <p class="alert-danger" *ngIf="!Status.valid && Status.touched">Status Is Required</p><br />
+
+            <label for="ALN">Parent Id</label>
+            <input type="text" class="form-control" ngModel name="ParentID" #ParentID="ngModel" required>
+            <p class="alert-danger" *ngIf="!ParentID.valid && ParentID.touched">Student's Parent Id Is Required
+            </p>
+            <br />
+
+            <label for="ALN">Fees Id</label>
+            <input type="text" class="form-control" ngModel name="FeesID" #FeesID="ngModel" required>
+            <p class="alert-danger" *ngIf="!FeesID.valid && FeesID.touched">Student's Fees Id Is Required</p>
+            <br />
+
+            <label for="ALN">Upload Img</label>
+            <input type="file" class="form-control-file" ngModel name="Img" #Image="ngModel" required>
+            <p class="alert-danger" *ngIf="!Image.valid && Image.touched">Student's Image Is Required</p><br />
+
+            <button type="submit" class="btn btn-success">save</button>
+          </form>
+        </fieldset>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

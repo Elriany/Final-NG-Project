@@ -1,0 +1,102 @@
+<section id="main-content">
+  <section class="wrapper site-min-height">
+    <div class="row">
+      <div class="col-md" style="margin-left:20px; margin-right:20px;">
+        <button type="button" class="btn btn-success mt-md-2 btnSpecial" data-toggle="modal" data-target="#myModalAdd">Add
+          New</button>
+        <table class="table table-hover table-bordered mt-md-2">
+          <thead class="alert-danger">
+            <tr>
+              <td class="text-center">Id</td>
+              <td class="text-center">Level Name</td>
+              <td class="text-center">AR Level Name</td>
+              <td class="text-center">Fees</td>
+              <td class="text-center">Schedule</td>
+              <td class="text-center">Operation</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let level of Levels;">
+              <td class="text-center">{{ level.id }}</td>
+              <td class="text-center">{{ level.levelName }}</td>
+              <td class="text-center">{{ level.levelAName }}</td>
+              <td class="text-center">{{ level.fees }}</td>
+              <td class="text-center">{{ level.scheduleFile }}</td>
+              <td class="text-center">
+                <button class="btn btn-danger" (click)="DeleteLevels(level.id)">Delete</button>&nbsp;
+                <button type="button" (click)="EditLevels(level.id)" class="btn btn-info" data-toggle="modal"
+                  data-target="#myModal">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</section>
+<!-- Modal -->
+<div id="myModal" *ngIf="myLevels" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Edit</h4>
+      </div>
+      <div class="modal-body">
+        <h1 class="text-center alert-success">Edit Role</h1>
+        <form (ngSubmit)="updateLevels(submitF)" #submitF="ngForm" class="form-group">
+          <input type="hidden" [value]="myLevels.id" ngModel name="id" #id="ngModel">
+          <input type="text" class="form-control" [value]="myLevels.levelName" placeholder="Enter Your level Name"
+            ngModel name="levelName" #levelName="ngModel" required>
+          <p class="alert-danger" *ngIf="!levelName.valid && levelName.touched">level Name Is Required</p><br />
+          <input type="text" class="form-control" [value]="myLevels.levelAName" placeholder="Enter Your ar level Name"
+            ngModel name="levelAName" #levelAName="ngModel" required>
+          <p class="alert-danger" *ngIf="!levelAName.valid && levelAName.touched">ar level Name Is Required</p><br />
+          <input type="text" class="form-control" [value]="myLevels.fees" placeholder="Enter Your fees" ngModel
+            name="fees" #fees="ngModel" required>
+          <p class="alert-danger" *ngIf="!fees.valid && fees.touched">Fees Is Required</p><br />
+          <input type="text" class="form-control" [value]="myLevels.scheduleFile" placeholder="Enter Your scheduleFile"
+            ngModel name="scheduleFile" #scheduleFile="ngModel" required>
+          <p class="alert-danger" *ngIf="!scheduleFile.valid && scheduleFile.touched">schedule File Is Required</p>
+          <br />
+          <button type="submit" class="btn btn-danger btn-block">Edit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="myModalAdd" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Add</h4>
+      </div>
+      <div class="modal-body">
+        <h1 class="text-center alert-success">Add New Level</h1>
+        <form (ngSubmit)="AddLevels(subitForm)" #subitForm="ngForm" class="form-group">
+          <input type="text" class="form-control" placeholder="Enter Your level Name" ngModel name="levelName"
+            #levelName="ngModel" required>
+          <p class="alert-danger" *ngIf="!levelName.valid && levelName.touched">level Name Is Required</p><br />
+          <input type="text" class="form-control" placeholder="Enter Your ar level Name" ngModel name="levelAName"
+            #levelAName="ngModel" required>
+          <p class="alert-danger" *ngIf="!levelAName.valid && levelAName.touched">ar level Name Is Required</p><br />
+          <input type="text" class="form-control" placeholder="Enter Your fees" ngModel name="fees" #fees="ngModel"
+            required>
+          <p class="alert-danger" *ngIf="!fees.valid && fees.touched">Fees Is Required</p><br />
+          <input type="text" class="form-control" placeholder="Enter Your scheduleFile" ngModel name="scheduleFile"
+            #scheduleFile="ngModel" required>
+          <p class="alert-danger" *ngIf="!scheduleFile.valid && scheduleFile.touched">schedule File Is Required</p>
+          <br />
+          <button type="submit" class="btn btn-success btn-block">Save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

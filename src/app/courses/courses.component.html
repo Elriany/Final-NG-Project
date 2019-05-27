@@ -1,0 +1,113 @@
+<section id="main-content">
+  <section class="wrapper site-min-height">
+    <div class="row">
+      <div class="col-md" style="margin-left:20px; margin-right:20px;">
+        <button type="button" class="btn btn-success mt-md-2 btnSpecial" data-toggle="modal" data-target="#myModalAdd">Add
+          New</button>
+        <table class="table table-hover table-bordered">
+          <thead class="alert-danger">
+            <tr>
+              <td class="text-center">Code</td>
+              <td class="text-center">CourseName</td>
+              <td class="text-center">أسم الكورس</td>
+              <td class="text-center">Staff ID</td>
+              <td class="text-center">Level ID</td>
+              <td class="text-center">Operation</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of Courses;">
+              <td class="text-center">{{ course.code }}</td>
+              <td class="text-center">{{ course.crs_Name }}</td>
+              <td class="text-center">{{ course.crs_AName }}</td>
+              <td class="text-center">{{ course.staffId }}</td>
+              <td class="text-center">{{ course.levelID }}</td>
+              <td class="text-center">
+                <button class="btn btn-danger" (click)="DeleteCourse(course.code)">Delete</button>&nbsp;
+                <button type="button" (click)="EditCourse(course.code)" class="btn btn-info" data-toggle="modal"
+                  data-target="#myModal">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- Modal for Edit and Update Course -->
+<div id="myModal" *ngIf="Course" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit</h4>
+      </div>
+      <div class="modal-body">
+        <h1 class="text-center alert-success">Edit Course</h1>
+        <form (ngSubmit)="updateCourses(submitF)" #submitF="ngForm" class="form-group">
+          <input type="hidden" [value]="Course.code" ngModel name="code" #code="ngModel">
+          <input type="text" class="form-control" [value]="Course.crs_Name" placeholder="Enter The Course Name" ngModel
+            name="crs_Name" #crs_Name="ngModel" required>
+          <p class="alert-danger" *ngIf="!crs_Name.valid && crs_Name.touched">First Name Is Required</p><br />
+          <input type="text" class="form-control" [value]="Course.crs_AName" placeholder="أدخل أسم الكورس" ngModel
+            name="crs_AName" #crs_AName="ngModel" required>
+          <p class="alert-danger" *ngIf="!crs_AName.valid && crs_AName.touched">Last Name Is Required</p><br />
+
+          <input type="text" class="form-control" [value]="Course.staffId" placeholder="Enter The Staff ID" ngModel
+            name="staffId" #staffId="ngModel" required>
+          <p class="alert-danger" *ngIf="!staffId.valid && staffId.touched">Staff ID is Required</p><br />
+          <input type="text" class="form-control" [value]="Course.levelID" placeholder="Enter The Level ID" ngModel
+            name="levelID" #levelID="ngModel" required>
+          <p class="alert-danger" *ngIf="!levelID.valid && levelID.touched">The Level ID is Required</p><br />
+
+          <button type="submit" class="btn btn-danger btn-block">save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal content For Add Course-->
+<div id="myModalAdd" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <legend>Add Course Form</legend>
+        <fieldset>
+          <form (ngSubmit)="AddCourse(subitForm)" #subitForm="ngForm" class="form-group">
+
+            <label for="LN">Course Name</label>
+            <input type="text" class="form-control" id="LN" ngModel name="crs_Name" #crs_Name="ngModel" required>
+            <p class="alert-danger" *ngIf="!crs_Name.valid && crs_Name.touched">Course Name In English Is Required</p>
+            <br />
+
+            <label for="AFN"> أسم الكورس</label>
+            <input type="text" class="form-control" id="AFN" ngModel name="crs_AName" #crs_AName="ngModel" required>
+            <p class="alert-danger" *ngIf="!crs_AName.valid && crs_AName.touched">اسم الكورس باللغه العربية مطلوب</p>
+            <br />
+
+            <label for="ALN">Staff ID</label>
+            <input type="text" class="form-control" id="ALN" ngModel name="staffId" #staffId="ngModel" required>
+            <p class="alert-danger" *ngIf="!staffId.valid && staffId.touched">Staff ID Is Required</p>
+            <br />
+
+            <label for="FN">Level ID</label>
+            <input type="text" class="form-control" id="FN" ngModel name="levelID" #levelID="ngModel" required>
+            <p class="alert-danger" *ngIf="!levelID.valid && levelID.touched">Level ID Is Required</p>
+            <br />
+
+            <button type="submit" class="btn btn-success">save</button>
+
+          </form>
+        </fieldset>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,218 @@
+<section id="main-content">
+  <section class="wrapper site-min-height">
+<div class="row">
+  <div class="col-md" style="margin-left:20px; margin-right:20px;">
+    <button type="button" class="btn btn-success mt-md-2 btnSpecial" data-toggle="modal" data-target="#myModalAdd">Add New</button>
+    <table class="table table-hover table-bordered mt-md-2">
+      <thead class="alert-danger">
+        <tr>
+            <td class="text-center">Id</td>
+            <td class="text-center">First Name</td>
+            <td class="text-center">Last Name</td>
+            <td class="text-center">Ar FName</td>
+            <td class="text-center">Ar LName</td>
+            <td class="text-center">Email</td>
+            <td class="text-center">Password</td>
+            <td class="text-center">Phone</td>
+            <td class="text-center">Date Of Birth</td>
+            <td class="text-center">Join Date</td>
+            <td class="text-center">Fire Date</td>
+            <td class="text-center">Status</td>
+            <td class="text-center">Role</td>
+            <td class="text-center">Image</td>
+            <td class="text-center">Operation</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stuff of stuffs;">
+            <td class="text-center">{{ stuff.id }}</td>
+            <td class="text-center">{{ stuff.fname }}</td>
+            <td class="text-center">{{ stuff.lname }}</td>
+            <td class="text-center">{{ stuff.Afname }}</td>
+            <td class="text-center">{{ stuff.Alname }}</td>
+            <td class="text-center">{{ stuff.email }}</td>
+            <td class="text-center">{{ stuff.pass }}</td>
+            <td class="text-center">{{ stuff.phone }}</td>
+            <td class="text-center">{{ stuff.DOB }}</td>
+            <td class="text-center">{{ stuff.JoinDate }}</td>
+            <td class="text-center">{{ stuff.FiredDate }}</td>
+            <td class="text-center">{{ stuff.status }}</td>
+            <td class="text-center">{{ stuff.RoleId }}</td>
+            <td class="text-center"><img [src]="stuff.Img" width="60" height="60" alt=""></td>
+            <!-- <td class="text-center">{{stuff.Img }}</td> -->
+            <td class="text-center">
+              <button class="btn btn-danger" (click)="Deletestuffs(stuff.id)">Delete</button>&nbsp;
+              <button type="button" (click)="Editstuffs(stuff.id)" class="btn btn-info" data-toggle="modal" data-target="#myModal">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> 
+  </div>
+  </section>
+  </section>
+  <!-- Edit Modal -->
+<div id="myModal" *ngIf="mystuffs" class="modal fade" role="dialog">
+  <div class="modal-dialog">  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit</h4>
+      </div>
+      <div class="modal-body">
+          <h1 class="text-center alert-success">Edit Book</h1>
+          <form (ngSubmit)="updatestuffs(submitF)" #submitF="ngForm" class="form-group">
+            <input type="hidden" [value]="mystuffs.id"  ngModel  name="id" #id="ngModel">  
+            <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text"  class="form-control"  [value]="mystuffs.fname" placeholder="Enter Your fname"  ngModel  name="fname" #fname="ngModel"  required>
+            </div>
+            <p class="alert-danger" *ngIf="!fname.valid && fname.touched">fname Is Required</p><br />
+            <div class="form-group">
+            <label for="Afname">Ar First Name</label>
+            <input type="text"  class="form-control"  [value]="mystuffs.Afname" placeholder="Enter Your Afname"  ngModel  name="Afname" #Afname="ngModel"  required>
+            </div>
+            <p class="alert-danger" *ngIf="!Afname.valid && Afname.touched">fname Is Required</p><br />
+            <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text"  class="form-control"  [value]="mystuffs.lname" placeholder="Enter Your Ar lname"  ngModel  name="lname" #lname="ngModel"  required>
+            </div>
+            <p class="alert-danger" *ngIf="!lname.valid && lname.touched">Ar lname Is Required</p><br />
+            <div class="form-group">
+            <label for="Alname">Ar Last Name</label>
+            <input type="text"  class="form-control"  [value]="mystuffs.Alname" placeholder="Enter Your Ar Alname"  ngModel  name="Alname" #Alname="ngModel"  required>
+            </div>
+            <p class="alert-danger" *ngIf="!Alname.valid && Alname.touched">Ar lname Is Required</p><br />
+            <div class="form-group">
+            <label for="status">Status</label>
+            <input type="text"  class="form-control"  [value]="mystuffs.status" placeholder="Enter Your status"  ngModel  name="status" #status="ngModel"  required>
+            </div>
+            <p class="alert-danger" *ngIf="!status.valid && status.touched">status Is Required</p><br />
+            <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text"  class="form-control"  [value]="mystuffs.email" placeholder="Enter Your email"  ngModel  name="email" #email="ngModel"  required>
+            </div>
+            <p class="alert-danger" *ngIf="!email.valid && email.touched">Content Is Required</p><br />
+            <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text"  class="form-control"  [value]="mystuffs.phone" placeholder="Enter Your  phone"  ngModel  name="phone" #phone="ngModel"  required>
+            </div>
+            <p class="alert-danger" *ngIf="!phone.valid && phone.touched">phone Is Required</p><br />
+            <div class="form-group">
+                <label for="RoleId">Role</label>
+                <select name="RoleId" ngModel #RoleId="ngModel" class="form-control" >
+                  <option *ngFor="let role of Roles"  value="{{role.id}}">{{role.RuleName}}</option>
+                </select>
+            </div>
+            <p class="alert-danger" *ngIf="!RoleId.valid && RoleId.touched">Role Is Required</p><br />
+            <div class="form-group">
+            <label for="DOB">Date Of Birth</label>
+            <input type="text"  class="form-control"  [value]="mystuffs.DOB" placeholder="Enter Your  Date of birth"  ngModel  name="DOB" #DOB="ngModel"  required>
+            </div>
+            <p class="alert-danger" *ngIf="!DOB.valid && DOB.touched">Date Of Birth Is Required</p><br />
+            <div class="form-group">
+            <label for="FiredDate">Fire Date</label>
+            <input type="text"  class="form-control"  [value]="mystuffs.FiredDate" placeholder="Enter Your FiredDate"  ngModel  name="FiredDate" #FiredDate="ngModel"  required>
+            </div>
+            <p class="alert-danger" *ngIf="!FiredDate.valid && FiredDate.touched">Fired Date Is Required</p><br />
+            <div class="form-group">
+            <label for="JoinDate">Join Date</label>
+            <input type="text"  class="form-control"  [value]="mystuffs.JoinDate" placeholder="Enter Your JoinDate"  ngModel  name="JoinDate" #JoinDate="ngModel"  required>
+            </div>
+            <p class="alert-danger" *ngIf="!JoinDate.valid && JoinDate.touched">Join Date Is Required</p><br />
+            <div class="form-group">
+            <label for="Img">Image</label>
+            <input type="text"  class="form-control"  [value]="mystuffs.Img" placeholder="Enter Your Img"  ngModel  name="Img" #Img="ngModel"  required>
+            </div>
+            <p class="alert-danger" *ngIf="!Img.valid && Img.touched">Image Is Required</p><br />
+            <button type="submit"  class="btn btn-success btn-block">Edit</button>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+      </div>
+    </div>  
+  </div>
+</div>
+<div id="myModalAdd" class="modal fade" role="dialog">
+      <div class="modal-dialog">  
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add</h4>
+          </div>
+          <div class="modal-body">
+              <h1 class="text-center alert-success">Add New News</h1>
+              <form (ngSubmit)="Addstuffs(subitForm)" #subitForm="ngForm" class="form-group" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text"  class="form-control" placeholder="Enter Your fname"  ngModel  name="fname" #fname="ngModel"  required>
+            </div>
+                <!-- <p class="alert-danger" *ngIf="!fname.valid && fname.touched">fname Is Required</p><br /> -->
+            <div class="form-group">
+            <label for="Afname">Ar First Name</label>
+            <input type="text"  class="form-control" placeholder="Enter Your Afname"  ngModel  name="Afname" #Afname="ngModel"  required>
+            </div>
+            <!-- <p class="alert-danger" *ngIf="!Afname.valid && Afname.touched">fname Is Required</p><br /> -->
+            <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text"  class="form-control" placeholder="Enter Your Ar lname"  ngModel  name="lname" #lname="ngModel"  required>
+            </div>
+            <!-- <p class="alert-danger" *ngIf="!lname.valid && lname.touched">Ar lname Is Required</p><br /> -->
+            <div class="form-group">
+            <label for="Alname">Ar Last Name</label>
+            <input type="text"  class="form-control" placeholder="Enter Your Ar Alname"  ngModel  name="Alname" #Alname="ngModel"  required>
+            </div>
+            <!-- <p class="alert-danger" *ngIf="!Alname.valid && Alname.touched">Ar lname Is Required</p><br /> -->
+            <div class="form-group">
+            <label for="status">Status</label>
+            <input type="text"  class="form-control" placeholder="Enter Your status"  ngModel  name="status" #status="ngModel"  required>
+            </div>
+            <!-- <p class="alert-danger" *ngIf="!status.valid && status.touched">status Is Required</p><br /> -->
+            <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text"  class="form-control" placeholder="Enter Your email"  ngModel  name="email" #email="ngModel"  required>
+            </div>
+            <!-- <p class="alert-danger" *ngIf="!email.valid && email.touched">Content Is Required</p><br /> -->
+            <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text"  class="form-control" placeholder="Enter Your  phone"  ngModel  name="phone" #phone="ngModel"  required>
+            </div>
+            <!-- <p class="alert-danger" *ngIf="!phone.valid && phone.touched">phone Is Required</p><br /> -->
+            <div class="form-group">
+            <label for="RoleId">Role</label>
+            <select name="RoleId" ngModel #RoleId="ngModel" class="form-control">
+              <option *ngFor="let role of Roles"  value="{{role.id}}">{{role.RuleName}}</option>
+            </select>
+            </div>
+            <!-- <p class="alert-danger" *ngIf="!RoleId.valid && RoleId.touched">phone Is Required</p><br /> -->
+            <div class="form-group">
+            <label for="DOB">Date Of Birth</label>
+            <input type="text"  class="form-control"   placeholder="Enter Your  Date of birth"  ngModel  name="DOB" #DOB="ngModel"  required>
+            </div>
+            <!-- <p class="alert-danger" *ngIf="!DOB.valid && DOB.touched">Date Of Birth Is Required</p><br /> -->
+            <div class="form-group">
+            <label for="FiredDate">Fire Date</label>
+            <input type="text"  class="form-control" placeholder="Enter Your FiredDate"  ngModel  name="FiredDate" #FiredDate="ngModel"  required>
+            </div>
+            <!-- <p class="alert-danger" *ngIf="!FiredDate.valid && FiredDate.touched">Fired Date Is Required</p><br /> -->
+            <div class="form-group">
+            <label for="JoinDate">Join Date</label>
+            <input type="text"  class="form-control" placeholder="Enter Your JoinDate"  ngModel  name="JoinDate" #JoinDate="ngModel"  required>
+            </div>
+            <!-- <p class="alert-danger" *ngIf="!JoinDate.valid && JoinDate.touched">Join Date Is Required</p><br /> -->
+            <div class="form-group">
+            <label for="Img">Image</label>
+            <input type="file"  class="form-control"   placeholder="Enter Your Img"  ngModel  name="Img" #Img="ngModel"  required> 
+            </div>
+            <!-- <p class="alert-danger" *ngIf="!Img.valid && Img.touched">Image Is Required</p><br /> -->
+            <!-- <button type="submit" [disabled]="!subitForm.valid"  class="btn btn-success btn-block">Save</button> -->
+            <button type="submit"   class="btn btn-success btn-block">Save</button>
+           </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+          </div>
+        </div>  
+      </div>
+</div>

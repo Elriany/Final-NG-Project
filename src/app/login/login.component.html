@@ -1,0 +1,16 @@
+
+
+<div class="container"  style="margin-top: 150px" >
+    <h1 class="text-center">Stuff Login</h1>
+    <form #submitForm="ngForm" (ngSubmit)="login(submitForm)">
+        <div>
+        <input  type="text" name="email" #email="ngModel" ngModel placeholder="Email"  />
+        </div>
+        <div>
+        <input  type="text" name="pass" #pass="ngModel" ngModel placeholder="Password"  />
+        </div>
+        <button type="submit" color="primary">Login</button>
+        </form> 
+     </div>
+
+     

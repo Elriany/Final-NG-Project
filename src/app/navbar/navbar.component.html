@@ -1,0 +1,48 @@
+<header class="header black-bg">
+    <div class="sidebar-toggle-box">
+      <div class="fa fa-bars tooltips" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+        aria-controls="collapseExample" data-original-title="Toggle Navigation"></div>
+    </div>
+
+
+    <a href="index.html" class="logo"><b>DASH<span>IO</span></b></a>
+    <!-- <div class="nav notify-row" id="top_menu">
+      <ul class="nav top-menu">
+        <li routerLinkActive="Active current">
+          <a routerLink="/home"> Home </a>
+        </li>
+        <li>             
+            <a *ngIf="auth.isLoggedIn()" routerLink="/Admin/ProfileOfAdmin"> <i class="fa fa-dashboard"> &nbsp; &nbsp; DashBoard</i> </a>
+        </li>
+        <li>
+            <a *ngIf="std.isLoggedIn()" routerLink="/Student/ProfileOfStudent"> Student </a>
+        </li>
+        <li>
+            <a *ngIf="par.isLoggedIn() " routerLink="/Parent/ProfileOfParent"> Parent </a>
+        </li>
+        <li>
+            <a *ngIf="auth.isLoggedIn()" routerLink="/Staff/ProfileOfStaff"> Staff </a>
+        </li>
+      </ul>
+    </div> -->
+    <div class="top-menu">
+
+      <ul class="nav pull-right top-menu">
+        <!-- <li><a class="logout dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" *ngIf="!auth.isLoggedIn()" routerLink="/login">Login</a></li>-->
+        <li><a class="logout" role="button" *ngIf="auth.isLoggedIn() || std.isLoggedIn() || par.isLoggedIn() " (click)="auth.logout()">LogOut</a></li>         
+        <li>
+          <div class="btn-group" *ngIf="!auth.isLoggedIn() || !std.isLoggedIn() || !par.isLoggedIn()">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Login
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" routerLink="/login">Stuff Login</a><br />
+              <a class="dropdown-item" routerLink="/studentLogin">Student Login</a><br/>
+              <a class="dropdown-item" routerLink="/parentLogin">Parent Login</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <router-outlet></router-outlet>

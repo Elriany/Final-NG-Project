@@ -1,0 +1,10 @@
+.wrapper{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+.item{
+  background-color: brown;
+  height: 300px;
+  display: inline-block;
+}
